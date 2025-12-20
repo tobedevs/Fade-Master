@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Fade Master - Premium Barber Shop</title>
+    <style>
+        :root {
+            --bg: #000;
+            --text: #fff;
+            --card-bg: #111;
+            --header-bg: url('https://img.peerspace.com/image/upload/f_auto,q_auto,dpr_auto,w_3840/z1dahzzbflkx9shqwtyt');
+            --accent: #fff;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f8f8;
+            --text: #000;
+            --card-bg: #fff;
+            --header-bg: url('https://pub-5056d45277504faeaf2b4401b8a60fef.r2.dev/2025/06/Barber-Shop-Lighting-7.jpg');
+            --accent: #000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), var(--header-bg) center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            transition: background 0.4s;
+        }
+
+        [data-theme="light"] header {
+            background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), var(--header-bg) center/cover no-repeat;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.8rem;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s, background 0.4s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        [data-theme="light"] .service-card {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .barbers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .barber-card img {
+            width: 100%;
+            border-radius: 50%;
+            height: 300px;
+            object-fit: cover;
+            border: 5px solid var(--accent);
+        }
+
+        .gallery {
+            position: relative;
+            overflow: hidden;
+            max-width: 100%;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel img {
+            min-width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: background 0.4s;
+        }
+
+        [data-theme="light"] .prev, [data-theme="light"] .next {
+            background: rgba(255,255,255,0.7);
+            color: #000;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        footer {
+            background: var(--card-bg);
+            padding: 40px;
+            text-align: center;
+            transition: background 0.4s;
+        }
+
+        /* Toggle Switch */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 3rem; }
+            header p { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-checkbox">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <header>
+        <h1>Your Fade Master</h1>
+        <p>Look Sharp. Feel Confident.</p>
+    </header>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services">
+            <div class="service-card">
+                <h3>Skin Fade</h3>
+                <p>Precision bald fade for a clean, modern look.</p>
+                <strong>$45</strong>
+            </div>
+            <div class="service-card">
+                <h3>Classic Cut</h3>
+                <p>Timeless scissor or clipper cut tailored to you.</p>
+                <strong>$40</strong>
+            </div>
+            <div class="service-card">
+                <h3>Beard Trim & Shape</h3>
+                <p>Expert shaping and lineup for the perfect beard.</p>
+                <strong>$25</strong>
+            </div>
+            <div class="service-card">
+                <h3>The Full Works</h3>
+                <p>Haircut + Beard Trim + Hot Towel</p>
+                <strong>$65</strong>
+            </div>
+        </div>
+    </section>
+
+    <section id="barbers">
+        <h2>Our Master Barbers</h2>
+        <div class="barbers">
+            <div class="barber-card">
+                <img src="https://media.gettyimages.com/id/1408272836/photo/professional-barber-cutting-customers-hair-in-barber-shop.jpg?s=170667a&w=gi&k=20&c=0K9pnkO090kJAsDhdPZ8e4QJnZ-5vXHBCZvvWTfZQU8=" alt="Barber 1">
+                <h3>John Doe</h3>
+                <p>Master barber with 10+ years. Specializes in fades.</p>
+            </div>
+            <div class="barber-card">
+                <img src="https://c8.alamy.com/comp/2CHFN8R/young-guy-cutting-hair-at-professional-barber-shop-free-space-2CHFN8R.jpg" alt="Barber 2">
+                <h3>Mike Smith</h3>
+                <p>Beard expert and modern styling pro.</p>
+            </div>
+            <div class="barber-card">
+                <img src="https://www.shutterstock.com/image-photo/professional-barber-giving-haircut-young-600nw-2648175981.jpg" alt="Barber 3">
+                <h3>David Chen</h3>
+                <p>Precision scissor work and contemporary styles.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery - Master Level Cuts</h2>
+        <div class="gallery">
+            <div class="carousel" id="carousel">
+                <img src="https://www.salonsdirect.com/media/.renditions/wysiwyg/skin_fade_merge_1_1.jpg" alt="Skin Fade 1">
+                <img src="https://hanzo.com/wp-content/uploads/2024/06/low-fade-haircut.jpg" alt="Low Fade">
+                <img src="https://cdn-ieeolgd.nitrocdn.com/IedkYtyzdaBfctPeAHSREkHiRdpkcSXT/assets/images/optimized/rev-3b5d6ec/barbercraftsd.com/wp-content/uploads/2024/12/maxresdefault-1280x700.jpg" alt="Fade Haircut">
+                <img src="https://cdn.prod.website-files.com/5cb569e54ca2fddd5451cbb2/6490e6cd66f2a90d43559ed5_High-Skin-Fade.jpg" alt="High Skin Fade">
+                <img src="https://i.ytimg.com/vi/jSHNbOuzYR4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAVS5UrYVPLuWFk9gK4Edr9vTTKJw" alt="Mid Fade">
+                <img src="https://forteseries.com/cdn/shop/articles/High-Fade-Featured-Image_49d65196-776a-41aa-b9bc-181a82ad6b87.webp?v=1757938260" alt="High Fade">
+                <img src="https://barbertainer.com/wp-content/uploads/2025/06/Skin-Fade-Haircut.jpg" alt="Skin Fade">
+                <img src="https://www.gqhairlounge.info/wp-content/uploads/2024/10/Leonardo_Phoenix_Professional_barber_giving_a_clean_fade_hairc_1-768x434.jpg" alt="Clean Fade">
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">❮</button>
+            <button class="next" onclick="moveSlide(1)">❯</button>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Book Now</h2>
+        <p>Easy 3-step online booking or call us!</p>
+        <p>Phone: 07026709859</p>
+        <p>Email: tobeadigwe3000@gmail.com</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Your Fade Master. All rights reserved. -buildwithisaac</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const checkbox = document.getElementById('theme-checkbox');
+        const body = document.body;
+
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+                body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            body.setAttribute('data-theme', 'light');
+            checkbox.checked = true;
+        }
+
+        // Carousel
+        let slideIndex = 0;
+        const carousel = document.getElementById('carousel');
+        const slides = carousel.children.length;
+
+        function moveSlide(direction) {
+            slideIndex += direction;
+            if (slideIndex >= slides) slideIndex = 0;
+            if (slideIndex < 0) slideIndex = slides - 1;
+            carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        setInterval(() => moveSlide(1), 5000);
+    </script>
+</body>
+</html>
